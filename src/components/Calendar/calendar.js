@@ -1,56 +1,140 @@
 import React from "react";
-import style from './calendar.module.css' ;
+import  './calendar.css' ;
+import './../../index.css'
+import * as utils from './utils';
 
 
-export default class Calendar extends React.Component  {
+export default class Calendar extends React.Component {
 
     static defaultProps = {
-        years:["1990","1991","1992","1993","1994","1995","1996","1997","1998","1999",
-            "2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010",
-            "2011", "2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025"],
+        date: new Date(),
+        years: ["1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999",
+            "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010",
+            "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"],
 
-        months:["Հունվար" , "Փետրվար", "Մարտ" , "Ապրիլ" , "Մայիս" , "Հունիս" , "Հուլիս" , "Օգոստոս" , "Սեպտեմբեր" , "Հոկտեմբեր" , "Նոյեմբեր" , "Դեկտեմբեր" , ],
-        weekDays:["Երկ", "Երք", "Չրք","Հնգ", "Ուրբ","Շբթ","Կիր"],
+        months: ["Հունվար", "Փետրվար", "Մարտ", "Ապրիլ", "Մայիս", "Հունիս", "Հուլիս", "Օգոստոս", "Սեպտեմբեր", "Հոկտեմբեր", "Նոյեմբեր", "Դեկտեմբեր",],
+        weekDays: ["Երկ", "Երք", "Չրք", "Հնգ", "Ուրբ", "Շբթ", "Կիր"],
+        onChange: Function.prototype // Here we need to give a default value for onChange, and Function.prototype
+                                    // is perfect for this, a function that does nothing
+    };
+
+    state = {
+        date: this.props.date,
+        currentDate: new Date(),
+        selectedDate: null,
     }
-    render(){
 
-        const {years, months, weekDays}=this.props;
+    /*creating functionality for buttons*/
+
+    get year() {
+        return this.state.date.getFullYear()
+    };
+
+    get month() {
+        return this.state.date.getMonth()
+    };
+
+
+    previousMonthClick = () => {
+        const date = new Date(this.year, this.month - 1); //-1 month from the
+        console.log(date);                                                                                    // current position
+        this.setState({date});
+    }
+
+    nextMonthClick = () => {
+        const date = new Date(this.year, this.month + 1); // +1 month from the
+        console.log(date);                                                                                        // current position
+        this.setState({date});
+
+    }
+
+    renderSelectChange = () => {
+        const year = this.yearSelect.value;
+        const month = this.monthSelect.value;
+        const date = new Date(year, month);
+        console.log(date);
+        this.setState({date});
+
+    }
+
+    changeSelectedDay = date => {
+        console.log(date);
+        this.setState({selectedDate: date});
+        this.props.onChange(date)// for showing that the date was changed
+    }
+
+    render() {
+
+        const {years, months, weekDays} = this.props;
+
+
+        const daysOfMonth = utils.getMonthData(this.year, this.month)
 
         return (
-            <div className={style.calendar} >
+            <div className='calendar'>
 
                 <header>
-                    <button className={style.previousMonth}>Նախորդ ամիս</button>
+                    <button className='previousMonth' onClick={
+                        this.previousMonthClick
+                    }> {"<< Նախորդ"} </button>
 
-                    <select name="months" className={style.months}>
-                        {months.map((name, ind)=>
-                            <option key={name} value={ind}>{name}</option>
+                    <select ref={element => this.monthSelect = element}
+                            value={this.month}
+                            onChange={this.renderSelectChange}
+                            name="months"
+                            className='months'>
+
+                        {months.map((name, index) =>
+                            <option key={name} value={index}>{name}</option>
                         )}
 
                     </select>
 
-                    <select name="years" className={style.years}>
+                    <select ref={element => this.yearSelect = element}
+                            defaultValue={this.year}
+                            onChange={this.renderSelectChange}
+                            name="years"
+                            className='years'>
 
-                        {years.map((year)=>
+                        {years.map((year) =>
                             <option key={year} value={year}>{year}</option>
                         )}
 
                     </select>
 
-                    <button className={style.nextMonth}>Հաջորդ ամիս</button>
+                    <button onClick={this.nextMonthClick}
+                            className='nextMonth'
+                    >{"Հաջորդ >>"}</button>
                 </header>
 
-                <table >
+                <table className='table'>
                     <thead>
-                        <tr>
-                            {weekDays.map((weekDays)=>
-                                <th key={weekDays} >{weekDays}</th>
-                            )}
-                        </tr>
+                    <tr className='weekDays'>
+                        {weekDays.map((weekDay) =>
+                            <th key={weekDay}>{weekDay}</th>
+                        )}
+                    </tr>
 
                     </thead>
 
-                    <tbody>
+                    <tbody className='main'>
+
+
+                    {daysOfMonth.map((week, index) =>
+
+                        <tr key={index} className='week'>
+                            {week.map((date, index) =>
+                                date ?
+                                    <td key={index} className='day' onClick={() => {
+                                        this.changeSelectedDay(date)
+                                    }}>
+                                        {date.getDate()}
+                                    </td>
+                                    :
+                                    <td key={index}/>
+                            )}
+                        </tr>
+                    )}
 
                     </tbody>
                 </table>
