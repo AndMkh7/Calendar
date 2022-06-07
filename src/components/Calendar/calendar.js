@@ -2,16 +2,6 @@ import React from "react";
 import  './calendar.css' ;
 import * as utils from './utils';
 
-function areEqual(a, b) {
-    if (!a || !b) return false;
-
-    return (
-        a.getFullYear() === b.getFullYear() &&
-        a.getMonth() === b.getMonth() &&
-        a.getDate() === b.getDate()
-    );
-};
-
 
 export default class Calendar extends React.Component {
 
@@ -74,10 +64,9 @@ export default class Calendar extends React.Component {
 
 
     render() {
-        // console.log(currentDay,111)
-        // console.log(date,222)
+
         const {years, months, weekDays} = this.props;
-        const { currentDate, selectedDate } = this.state;
+
 
         const daysOfMonth = utils.getMonthData(this.year, this.month);
 
