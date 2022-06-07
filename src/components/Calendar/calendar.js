@@ -2,6 +2,16 @@ import React from "react";
 import  './calendar.css' ;
 import * as utils from './utils';
 
+function areEqual(a, b) {
+    if (!a || !b) return false;
+
+    return (
+        a.getFullYear() === b.getFullYear() &&
+        a.getMonth() === b.getMonth() &&
+        a.getDate() === b.getDate()
+    );
+};
+
 
 export default class Calendar extends React.Component {
 
@@ -63,12 +73,14 @@ export default class Calendar extends React.Component {
     };
 
 
-
     render() {
-
+        // console.log(currentDay,111)
+        // console.log(date,222)
         const {years, months, weekDays} = this.props;
+        const { currentDate, selectedDate } = this.state;
 
         const daysOfMonth = utils.getMonthData(this.year, this.month);
+
 
         return (
             <div className='calendar'>
@@ -91,7 +103,7 @@ export default class Calendar extends React.Component {
                     </select>
 
                     <select ref={element => this.yearSelect = element}
-                            defaultValue={this.year}
+                            value={this.year}
                             onChange={this.renderSelectChange}
                             name="years"
                             className='years'>
@@ -125,21 +137,24 @@ export default class Calendar extends React.Component {
                             <tr key={index} className='week'>
 
                                 {week.map((date, index) =>{
+
                                         let today = new Date();
-                                        let currentDay = today.getDate();
+                                      
                                         if(!date){
                                             return <td key={index}/>
                                         }
                                         else{
-                                            if( currentDay=== date ){
-                                                return <td key={index} className='currentDay' onClick={() => {
+                                            if( new Date(date).getFullYear() === today.getFullYear() &&
+                                                new Date(date).getMonth() === today.getMonth() &&
+                                                new Date(date).getDate() === today.getDate()){
+                                                return <td key={index} className={"today"} onClick={() => {
                                                     this.changeSelectedDay(date);
 
                                                 }}>
                                                     {date.getDate()}
                                                 </td>
                                             } else {
-                                                return (<td key={index} className='day' onClick={() => {
+                                                return (<td key={index} className="day" onClick={() => {
                                                     this.changeSelectedDay(date);
                                                 }}>
                                                     {date.getDate()}

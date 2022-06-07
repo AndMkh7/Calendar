@@ -2,7 +2,8 @@
     display: flex;
     justify-content: center;
     margin-bottom: 8px;
-    }
+
+}
 
 .calendar header button,
 .calendar header select {
@@ -30,9 +31,35 @@
 }
 
 .calendar .day:hover {
-    background-color: #eaeaeb;
+    background-color: #eaeaea;
     cursor: pointer;
     border-color:aqua;
+}
+
+.calendar .today {
+    border: 2px solid dodgerblue;
+    color:aquamarine;
+    background-color:darkorange ;
+}
+
+.calendar .today:hover {
+    background-color: darkorange;
+    cursor: pointer;
+    border-color:aquamarine;
+}
+
+.calendar .day.today {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.calendar .day.today:hover {
+    background-color: #0081ff;
+
+}
+
+.calendar .day.today.selected {
+    border: 2px solid lightgray;
 }
 
 .calendar.week.active{

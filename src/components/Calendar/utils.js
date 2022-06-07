@@ -42,7 +42,7 @@ export const getDayOfWeek = (date) => {
 
 };
 
-export const getMonthData = (year, month) => {//
+export const getMonthData = (year, month , currentDate) => {//
     const result = [];
     const date = new Date(year, month);
     let day = 1;
