@@ -2,7 +2,7 @@ const daysInMonthArr = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 function isLeapYear(year) {
     return !((year % 4 === 0) || (!(year % 100 !== 0)) && (year % 400 === 0));
-}
+}  // Returns leap year or no , i.e. February of 28 days or 29/365 or 366 days in year
 
 const Month = {
     January: 0,
@@ -20,8 +20,7 @@ const Month = {
 };
 
 
-
-export const getDaysInMonth = (date) => {
+export const getDaysInMonth = (date) => { // Returns how many days are in each month
     const month = date.getMonth();
     const year = date.getFullYear();
     const daysInMonth = daysInMonthArr[month];
@@ -31,7 +30,7 @@ export const getDaysInMonth = (date) => {
     } else {
         return daysInMonth;
     }
-}
+};
 
 
 export const getDayOfWeek = (date) => {
@@ -41,17 +40,16 @@ export const getDayOfWeek = (date) => {
         return 6;
     return dayOfWeek - 1;
 
+};
 
-}
-
-export const getMonthData = (year, month) => {
+export const getMonthData = (year, month) => {//
     const result = [];
     const date = new Date(year, month);
     let day = 1;
     const daysInMonth = getDaysInMonth(date); // Function for knowing the count of the days in each month based on
-    // the date
+                                             // the date
     const monthStartsOn = getDayOfWeek(date); // Function for knowing which day of the week the month starts based on
-    // the date ( etc from Monday to Sunday )
+                                             // the date ( etc from Monday to Sunday )
 
     //adding a massive for days in month per week
     for (let i = 0; i < (daysInMonth + monthStartsOn) / 7; i++) {

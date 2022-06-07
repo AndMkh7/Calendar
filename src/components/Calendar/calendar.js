@@ -1,6 +1,5 @@
 import React from "react";
 import  './calendar.css' ;
-import './../../index.css'
 import * as utils from './utils';
 
 
@@ -22,7 +21,7 @@ export default class Calendar extends React.Component {
         date: this.props.date,
         currentDate: new Date(),
         selectedDate: null,
-    }
+    };
 
     /*creating functionality for buttons*/
 
@@ -37,16 +36,16 @@ export default class Calendar extends React.Component {
 
     previousMonthClick = () => {
         const date = new Date(this.year, this.month - 1); //-1 month from the
-        console.log(date);                                                                                    // current position
+        console.log(date);                                    // current position
         this.setState({date});
-    }
+    };
 
     nextMonthClick = () => {
         const date = new Date(this.year, this.month + 1); // +1 month from the
-        console.log(date);                                                                                        // current position
+        console.log(date);                                     // current position
         this.setState({date});
 
-    }
+    };
 
     renderSelectChange = () => {
         const year = this.yearSelect.value;
@@ -55,20 +54,21 @@ export default class Calendar extends React.Component {
         console.log(date);
         this.setState({date});
 
-    }
+    };
 
-    changeSelectedDay = date => {
+   changeSelectedDay = (date) => {
         console.log(date);
         this.setState({selectedDate: date});
         this.props.onChange(date)// for showing that the date was changed
-    }
+    };
+
+
 
     render() {
 
         const {years, months, weekDays} = this.props;
 
-
-        const daysOfMonth = utils.getMonthData(this.year, this.month)
+        const daysOfMonth = utils.getMonthData(this.year, this.month);
 
         return (
             <div className='calendar'>
@@ -119,26 +119,39 @@ export default class Calendar extends React.Component {
 
                     <tbody className='main'>
 
+                        {daysOfMonth.map((week, index) =>
 
-                    {daysOfMonth.map((week, index) =>
 
-                        <tr key={index} className='week'>
-                            {week.map((date, index) =>
-                                date ?
-                                    <td key={index} className='day' onClick={() => {
-                                        this.changeSelectedDay(date)
-                                    }}>
-                                        {date.getDate()}
-                                    </td>
-                                    :
-                                    <td key={index}/>
-                            )}
-                        </tr>
-                    )}
+                            <tr key={index} className='week'>
 
+                                {week.map((date, index) =>{
+                                        let today = new Date();
+                                        let currentDay = today.getDate();
+                                        if(!date){
+                                            return <td key={index}/>
+                                        }
+                                        else{
+                                            if( currentDay=== date ){
+                                                return <td key={index} className='currentDay' onClick={() => {
+                                                    this.changeSelectedDay(date);
+
+                                                }}>
+                                                    {date.getDate()}
+                                                </td>
+                                            } else {
+                                                return (<td key={index} className='day' onClick={() => {
+                                                    this.changeSelectedDay(date);
+                                                }}>
+                                                    {date.getDate()}
+                                                </td>)
+                                            }
+                                        }
+                                    }
+                                )}
+                            </tr>
+                        )}
                     </tbody>
                 </table>
-
 
             </div>
         )

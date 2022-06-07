@@ -1,9 +1,40 @@
-.months {
-    font-weight: bold;
+.calendar header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+    }
+
+.calendar header button,
+.calendar header select {
+    margin: 0 4px;
 }
 
-.years {
-    font-weight: bold;
+.calendar table {
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: auto;
 }
 
+.calendar th {
+    vertical-align: middle;
+    text-align: center;
+    height: 36px;
+}
 
+.calendar .day {
+    padding: 4px 8px;
+    vertical-align: middle;
+    text-align: center;
+    border: 2px solid transparent;
+}
+
+.calendar .day:hover {
+    background-color: #eaeaeb;
+    cursor: pointer;
+    border-color:aqua;
+}
+
+.calendar.week.active{
+    border-color: #0081ff;
+}
