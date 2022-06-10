@@ -120,6 +120,7 @@ export default class Calendar extends React.Component {
 
                     <tbody className='main'>
 
+
                         {daysOfMonth.map((week, index) =>
 
 
@@ -136,7 +137,7 @@ export default class Calendar extends React.Component {
                                             if( new Date(date).getFullYear() === today.getFullYear() &&
                                                 new Date(date).getMonth() === today.getMonth() &&
                                                 new Date(date).getDate() === today.getDate()){
-                                                return <td key={index} className={"today"} onClick={() => {
+                                                return <td key={index} className="today" onClick={() => {
                                                     this.changeSelectedDay(date);
 
                                                 }}>
