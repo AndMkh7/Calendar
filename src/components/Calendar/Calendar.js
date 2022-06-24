@@ -1,6 +1,6 @@
 import React from "react";
-import  './calendar.css' ;
-import * as utils from './utils';
+import  './Calendar.css' ;
+import * as utils from './Utils';
 
 
 export default class Calendar extends React.Component {
@@ -57,7 +57,7 @@ export default class Calendar extends React.Component {
     };
 
    changeSelectedDay = (date) => {
-        console.log(date);
+
         this.setState({selectedDate: date});
         this.props.onChange(date)// for showing that the date was changed
     };

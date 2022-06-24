@@ -1,7 +1,8 @@
 import React from "react";
 import './App.css';
 import './index.css';
-import Calendar from "./components/Calendar/calendar";
+import Calendar from "./components/Calendar/Calendar";
+import Clock from "./components/Clock/Clock";
 
 
 class App extends React.Component {
@@ -19,7 +20,11 @@ class App extends React.Component {
             <div className="App">
 
                 <h1>Օրացույց</h1>
+
                 {date && <h4>Ձեր ընտրած ամսաթիվը ՝ {date.toLocaleDateString()} </h4>}
+
+
+
 
                 <Calendar onChange ={this.showCurrentDate}/>
             </div>
