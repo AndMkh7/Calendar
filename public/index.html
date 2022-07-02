@@ -17,15 +17,15 @@
 
 <body>
 
-<script>
+<script >
     setInterval(function () {
         var now = new Date();
         var clock = document.getElementById("clock");
-        clock.innerHTML = now.toLocaleTimeString();
+        clock.innerHTML = now.toLocaleTimeString('en-GB');
     }, 1000);
 </script>
     <span id="clock"
-      style="background-color: black; color: aquamarine; border:4px outset coral;
+      style="background-color: black; color: aquamarine; border:4px outset coral; margin-top: 30px;
              font-family:Times New Roman serif ;font-size: 25px ;font-weight:lighter; padding:10px 30px;">
     </span>
 
