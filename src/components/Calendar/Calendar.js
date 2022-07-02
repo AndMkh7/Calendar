@@ -71,6 +71,7 @@ export default class Calendar extends React.Component {
         const daysOfMonth = utils.getMonthData(this.year, this.month);
 
 
+
         return (
             <div className='calendar'>
 
@@ -110,11 +111,18 @@ export default class Calendar extends React.Component {
 
                 <table className='table'>
                     <thead>
-                    <tr className='weekDays'>
-                        {weekDays.map((weekDay) =>
-                            <th key={weekDay}>{weekDay}</th>
-                        )}
-                    </tr>
+                        <tr className='weekDays'>
+                            {weekDays.map((weekDay) => {
+
+                                    if (weekDay === "Երկ" || weekDay === "Երք" || weekDay === "Չրք" ||
+                                        weekDay === "Հնգ" || weekDay === "Ուրբ") {
+                                        return <th key={weekDay}>{weekDay}</th>
+                                    } else {
+                                        return <th key={weekDay} className='weekend'>{weekDay}</th>
+                                    }
+                                }
+                            )}
+                        </tr>
 
                     </thead>
 
