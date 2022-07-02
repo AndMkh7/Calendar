@@ -33,7 +33,9 @@ export const getDaysInMonth = (date) => { // Returns how many days are in each m
 };
 
 
-export const getDayOfWeek = (date) => {
+export const getDayOfWeek = (date) => { // here we set the index of the days of the week, since on the basic data,
+                                        // the index of the day of Sunday is 0,
+                                        // but we give for Sunday index 6, from other days we simply do -1
     const dayOfWeek = date.getDay();
 
     if (dayOfWeek === 0)
@@ -42,7 +44,7 @@ export const getDayOfWeek = (date) => {
 
 };
 
-export const getMonthData = (year, month , currentDate) => {//
+export const getMonthData = (year, month ) => {//
     const result = [];
     const date = new Date(year, month);
     let day = 1;
@@ -52,12 +54,17 @@ export const getMonthData = (year, month , currentDate) => {//
                                              // the date ( etc from Monday to Sunday )
 
     //adding a massive for days in month per week
-    for (let i = 0; i < (daysInMonth + monthStartsOn) / 7; i++) {
+    for (let i = 0; i < (daysInMonth + monthStartsOn) / 7; i++) {  // here we get the count of weeks in the current
+                                                                   // month
         result[i] = [];
 
         for (let j = 0; j < 7; j++) { //in there 7 is a count of days in 1 week
 
-            if ((i === 0 && j < monthStartsOn) || day > daysInMonth) {
+            if ((i === 0 && j < monthStartsOn) || day > daysInMonth) {  // We get the days of the month and until those
+                                                                        // places where the day of the current month begins
+                                                                        // or after the day when the month ends, we put Undefined,
+                                                                        // so that on the calendar there are empty
+                                                                        // places for these days.
                 result[i][j] = undefined;
             } else {
                 result[i][j] = new Date(year, month, day++);
