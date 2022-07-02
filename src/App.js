@@ -2,7 +2,7 @@ import React from "react";
 import './App.css';
 import './index.css';
 import Calendar from "./components/Calendar/Calendar";
-import Clock from "./components/Clock/Clock";
+
 
 
 class App extends React.Component {
